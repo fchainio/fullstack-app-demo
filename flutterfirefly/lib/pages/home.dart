@@ -11,7 +11,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Column(children: [accountView(), balancesView(context)]);
+    return  Container(
+      child: balancesView(context),
+    );
   }
 
   accountView() {
@@ -24,6 +26,7 @@ class _HomePageState extends State<HomePage> {
   balancesView(BuildContext context) {
     return FutureBuilder(
       builder: _balancesViewBuilder,
+      future: getBalances(),
     );
   }
 
@@ -47,7 +50,9 @@ class _HomePageState extends State<HomePage> {
       default:
         return null;
     }
+  }
 
+  
     Widget _createListView(BuildContext context, AsyncSnapshot snapshot) {
       print(snapshot);
       List balances = snapshot.data['balances'];
@@ -67,5 +72,4 @@ class _HomePageState extends State<HomePage> {
         leading: Text(balances[index]['balance'])
       );
     }
-  }
 }
